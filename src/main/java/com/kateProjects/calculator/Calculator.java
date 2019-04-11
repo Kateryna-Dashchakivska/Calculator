@@ -7,12 +7,14 @@ public class Calculator {
 
 	public static void startSession() {
 
+		String filePath = "C:\\Users\\Kateryna_Dashchakivs\\IdeaProjects\\calculator/Calculation.log";
+
 		System.out.println("Starting new calculation session:");
 		
 		//Read first number
 		double operand1 = UserInputReader.readNumber();
 //		MyLogger.logMessage("Your calculation: " + "\r" + operand1);
-		MyLogger.appendUsingPrintWriter("C:\\Users\\Kateryna_Dashchakivs\\eclipse-workspace\\Calculator\\src\\ConsoleCalculator/Calculation.log", "Your calculation: " + "\r" + operand1);
+		MyLogger.appendUsingPrintWriter(filePath, "Your calculation: " + "\r" + operand1);
 
 		double result = operand1;
 		
@@ -23,7 +25,7 @@ public class Calculator {
 			Operation operation = null;
 			while (operation == null) {
 				String symbol = UserInputReader.readOperation();
-				MyLogger.appendUsingPrintWriter("C:\\Users\\Kateryna_Dashchakivs\\eclipse-workspace\\Calculator\\src\\ConsoleCalculator/Calculation.log", " " + symbol);
+				MyLogger.appendUsingPrintWriter(filePath, " " + symbol);
 				if (symbol.equals("=")) {
 					finished = true;
 					break;
@@ -32,14 +34,21 @@ public class Calculator {
 				}
 			}
 			if (finished == false) {
-				
+
 				//Read next number
 				double operand2 = UserInputReader.readNumber();
-				MyLogger.appendUsingPrintWriter("C:\\Users\\Kateryna_Dashchakivs\\eclipse-workspace\\Calculator\\src\\ConsoleCalculator/Calculation.log", " " + operand2);
+				MyLogger.appendUsingPrintWriter(filePath, " " + operand2);
 
 				//Perform operation
-				result = operation.perform(result, operand2);
-			}			
+				if (!(operation.getClass().isInstance(Division.class)) || (operand2 != 0.0) || (operand2 != 0)){
+					result = operation.perform(result, operand2);
+					finished = true;
+				}
+				else {
+					System.out.println("\\nYou are not allowed to divide by zero!");
+					finished = false;
+				}
+			}
 		}
 		
 		System.out.println("________________________________\n");
@@ -48,7 +57,7 @@ public class Calculator {
 		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
-		MyLogger.appendUsingPrintWriter("C:\\Users\\Kateryna_Dashchakivs\\eclipse-workspace\\Calculator\\src\\ConsoleCalculator/Calculation.log", " " + result
+		MyLogger.appendUsingPrintWriter(filePath, " " + result
 				+ "\r\nDate of the calculation: " + dateFormat.format(date));
 
 		System.out.println("Start new session?");

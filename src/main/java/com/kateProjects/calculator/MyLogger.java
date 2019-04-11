@@ -9,9 +9,9 @@ import java.io.PrintWriter;
 //import java.util.logging.SimpleFormatter;
 
 public class MyLogger {
-	
+
 	static void appendUsingPrintWriter(String filePath, String message) {
-		File file = new File("C:\\Users\\Kateryna_Dashchakivs\\eclipse-workspace\\Calculator\\src\\ConsoleCalculator/Calculation.log");
+		File file = new File(filePath);
 		FileWriter fr = null;
 		BufferedWriter br = null;
 		PrintWriter pr = null;
