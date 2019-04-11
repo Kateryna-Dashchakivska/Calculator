@@ -34,20 +34,21 @@ public class Calculator {
 				}
 			}
 			if (finished == false) {
-
 				//Read next number
 				double operand2 = UserInputReader.readNumber();
-				MyLogger.appendUsingPrintWriter(filePath, " " + operand2);
 
-				//Perform operation
-				if (!(operation.getClass().isInstance(Division.class)) || (operand2 != 0.0) || (operand2 != 0)){
+				MyLogger.appendUsingPrintWriter(filePath, " " + operand2);
+				Utility utility = new Utility();
+				//Perform operation    //(operand2 != 0.0)
+				if (!(operation.getClass().isInstance(Division.class)) && !(utility.isZero(operand2)) ){
 					result = operation.perform(result, operand2);
-					finished = true;
-				}
-				else {
-					System.out.println("\\nYou are not allowed to divide by zero!");
 					finished = false;
 				}
+				else {
+					System.out.println("\nYou are not allowed to divide by zero!");
+					finished = false;
+				}
+
 			}
 		}
 		
@@ -58,7 +59,7 @@ public class Calculator {
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date date = new Date();
 		MyLogger.appendUsingPrintWriter(filePath, " " + result
-				+ "\r\nDate of the calculation: " + dateFormat.format(date));
+				+ "\rDate of the calculation: " + dateFormat.format(date) + "\r\r");
 
 		System.out.println("Start new session?");
 		if (UserInputReader.readUserAgree()) {
