@@ -5,7 +5,7 @@ import java.util.Date;
 
 public class Calculator {
 
-	public static void startSession() {
+	public void startSession() {
 
 		String filePath = "C:\\Users\\Kateryna_Dashchakivs\\IdeaProjects\\calculator/Calculation.log";
 
