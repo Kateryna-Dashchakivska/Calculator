@@ -71,4 +71,29 @@ public class CalculatorTest {
                 assertNotNull ("Operation created from symbol: \'" + operationSymbol + "\' must not be null", operation);
             }
         }
+
+        @Test
+        public void multiplicationByZeroTest () {
+            String symbol = "*";
+            Operation operation = OperationFactory.createOperationFromSymbol(symbol);
+            assertNotNull ("Operation must not be null", operation);
+
+            double operand1 = 10;
+            double operand2 = 0;
+            double result = operation.perform(operand1, operand2);
+            assertEquals ("Incorrect result of multiplication operation!", 0 , result , 0.000001);
+    }
+
+        @Test
+        public void devisionByZeroTest () {
+            String symbol = "/";
+            Operation operation = OperationFactory.createOperationFromSymbol(symbol);
+            assertNotNull ("Operation must not be null", operation);
+
+            double operand1 = 10.0;
+            double operand2 = 0.0;
+            double myDouble = Double.POSITIVE_INFINITY;
+            double result = operation.perform(operand1, operand2);
+            assertEquals ("Incorrect result of multiplication operation!", myDouble, result , 0.000001);
+    }
 }
